@@ -1,0 +1,5 @@
+# Ignore artifacts:
+.nuxt
+.data
+node_modules
+public

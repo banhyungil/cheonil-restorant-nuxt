@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-size: clamp(1rem, 0.7vw, 1.5rem);
+  }
+  
+  a {
+    color: unset;
+    text-decoration: none;
+  }
+  
+  ul {
+    padding-left: 0;
+  }
+  
+  

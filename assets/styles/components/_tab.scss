@@ -1,0 +1,162 @@
+@use "../abstracts/mixin";
+
+.c-tab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  & > .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > input {
+      border: 1px solid grey;
+      margin: 4px;
+      padding-inline-start: 4px;
+      padding:4px;
+    }
+
+    button.edit {
+      &.on {
+        background-color: #2aac8e;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  .ctgs {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+
+    // default class
+    button {
+      min-width: 100px;
+      width: fit-content;
+      padding: 0 6px;
+      height: 44px;
+      border: 1px solid darkgrey;
+
+      &:hover {
+        background-color: #2aac8e;
+        color: #fff;
+      }
+
+      &.on {
+        color: #fff;
+        background-color: #2aac8e;
+      }
+
+      &.add {
+        height: 40px;
+      }
+    }
+  }
+
+  &.edit {
+    .ctgs {
+      button {
+        margin: 1px;
+
+        &.item{
+          outline: 1.4px dashed grey;
+        }
+        
+      }
+    }
+
+    .grid {
+      button {
+        margin: 1px;
+
+        &.item {
+          outline: 1.6px dashed darkgrey;
+        }
+        
+      }
+    }
+  }
+
+  .grid {
+    $item-min-height: 100px;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(170px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax($item-min-height, 1fr));
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: $item-min-height;
+      row-gap: 6px;
+      padding: 10px;
+      border: 1px solid grey;
+      box-shadow: var(--box-shadow);
+      margin: 0;
+
+      & > .favorite {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 1.2rem; 
+        margin-right: 10px;
+
+        &:disabled {
+            pointer-events: none;
+        }
+      }
+
+      @include mixin.hover; 
+      
+      &.add {
+        // width: 50%;
+        background-color: #2aac8e;
+        color: #fff;
+        border: none;
+      }
+
+      span.main {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      span.sub {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1024px) {
+  .tab {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media screen and (width <= 768px) {
+  .tab {
+    .grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
