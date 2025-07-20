@@ -1,30 +1,32 @@
-import useApi from './useApi'
+import api from './'
 
-export default function useApiStore() {
-    const api = useApi()
-    const prefix = '/store'
+const prefix = '/store'
 
-    const selectList = async () => {
-        const res = await api.get(prefix)
+async function selectList() {
+    const res = await api.get(prefix)
 
-        return res.data as StoreEntity[]
-    }
+    return res.data as StoreEntity[]
+}
 
-    const create = async (store: StoreEntity) => {
-        const res = await api.post(prefix, store)
+async function create(store: StoreEntity) {
+    const res = await api.post(prefix, store)
 
-        return res.data as StoreEntity
-    }
+    return res.data as StoreEntity
+}
 
-    const update = async (store: StoreEntity) => {
-        const res = await api.patch(`${prefix}/${store.seq}`, store)
+async function update(store: StoreEntity) {
+    const res = await api.patch(`${prefix}/${store.seq}`, store)
 
-        return res.data as StoreEntity
-    }
+    return res.data as StoreEntity
+}
 
-    const remove = (seq: number) => {
-        return api.delete(`${prefix}/${seq}`)
-    }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
 
-    return { selectList, create, update, remove }
+export default {
+    selectList,
+    create,
+    update,
+    remove,
 }

@@ -1,30 +1,32 @@
-import useApi from './useApi'
+import api from './'
 
-export default function useApiStoreCtg() {
-    const api = useApi()
-    const prefix = '/storeCategory'
+const prefix = '/storeCategory'
 
-    const selectList = async () => {
-        const res = await api.get(prefix)
+async function selectList() {
+    const res = await api.get(prefix)
 
-        return res.data as StoreCategoryEntity[]
-    }
+    return res.data as StoreCategoryEntity[]
+}
 
-    const create = async (storeCtg: StoreCategoryEntityCreation) => {
-        const res = await api.post(prefix, storeCtg)
+async function create(storeCtg: StoreCategoryEntityCreation) {
+    const res = await api.post(prefix, storeCtg)
 
-        return res.data as StoreCategoryEntity
-    }
+    return res.data as StoreCategoryEntity
+}
 
-    const update = async (storeCtg: StoreCategoryEntity) => {
-        const res = await api.patch(`${prefix}/${storeCtg.seq}`, storeCtg)
+async function update(storeCtg: StoreCategoryEntity) {
+    const res = await api.patch(`${prefix}/${storeCtg.seq}`, storeCtg)
 
-        return res.data as StoreCategoryEntity
-    }
+    return res.data as StoreCategoryEntity
+}
 
-    const remove = (seq: number) => {
-        return api.delete(`${prefix}/${seq}`)
-    }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
 
-    return { selectList, create, update, remove }
+export default {
+    selectList,
+    create,
+    update,
+    remove,
 }

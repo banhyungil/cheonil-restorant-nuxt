@@ -1,28 +1,30 @@
-import useApi from './useApi'
+import api from './'
 
-export default function useApiMenuCtg() {
-    const api = useApi()
-    const prefix = '/menuCategory'
+const prefix = '/menuCategory'
 
-    const selectList = async () => {
-        const res = await api.get(prefix)
+async function selectList() {
+    const res = await api.get(prefix)
 
-        return res.data as MenuCategoryEntity[]
-    }
+    return res.data as MenuCategoryEntity[]
+}
 
-    const create = async (menuCtg: MenuCategoryEntityCreation) => {
-        const res = await api.post(prefix, menuCtg)
-        return res.data as MenuCategoryEntity
-    }
+async function create(menuCtg: MenuCategoryEntityCreation) {
+    const res = await api.post(prefix, menuCtg)
+    return res.data as MenuCategoryEntity
+}
 
-    const update = async (menuCtg: MenuCategoryEntity) => {
-        const res = await api.patch(`${prefix}/${menuCtg.seq}`, menuCtg)
-        return res.data as MenuCategoryEntity
-    }
+async function update(menuCtg: MenuCategoryEntity) {
+    const res = await api.patch(`${prefix}/${menuCtg.seq}`, menuCtg)
+    return res.data as MenuCategoryEntity
+}
 
-    const remove = (seq: number) => {
-        return api.delete(`${prefix}/${seq}`)
-    }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
 
-    return { selectList, create, update, remove }
+export default {
+    selectList,
+    create,
+    update,
+    remove,
 }

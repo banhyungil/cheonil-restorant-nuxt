@@ -1,25 +1,29 @@
-export default function useApiExpenseCategory() {
-    const prefix = '/expenseCategories'
-    const api = useApi()
+import api from './'
 
-    async function selectList() {
-        const res = await api.get(prefix)
-        return res.data as ExpenseCategoryEntity[]
-    }
+const prefix = '/expenseCategories'
 
-    async function create(expsCtg: ExpenseCategoryEntity) {
-        const res = await api.post(prefix, expsCtg)
-        return res.data as ExpenseCategoryEntity
-    }
+async function selectList() {
+    const res = await api.get(prefix)
+    return res.data as ExpenseCategoryEntity[]
+}
 
-    async function update(expsCtg: ExpenseCategoryEntity) {
-        const res = await api.put(prefix, expsCtg)
-        return res.data as ExpenseCategoryEntity
-    }
+async function create(expsCtg: ExpenseCategoryEntity) {
+    const res = await api.post(prefix, expsCtg)
+    return res.data as ExpenseCategoryEntity
+}
 
-    function remove(seq: number) {
-        return api.delete(`${prefix}/${seq}`)
-    }
+async function update(expsCtg: ExpenseCategoryEntity) {
+    const res = await api.put(prefix, expsCtg)
+    return res.data as ExpenseCategoryEntity
+}
 
-    return { selectList, create, update, remove }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
+
+export default {
+    selectList,
+    create,
+    update,
+    remove,
 }

@@ -1,20 +1,23 @@
-export default function useApiProduct() {
-    const api = useApi()
-    const prefix = '/products'
+import api from './'
 
-    type Expands = 'prdInfo' | 'unit'
-    async function selectList(query?: { expands: Expands[] }) {
-        const res = await api.get(`${prefix}`, { params: { expand: query?.expands.join(',') } })
-        return res.data as ProductEntity[]
-    }
+const prefix = '/products'
 
-    async function createList(mpus: ProductEntity[]) {
-        return api.post(`${prefix}/batch-create`, mpus)
-    }
+type Expands = 'prdInfo' | 'unit'
+async function selectList(query?: { expands: Expands[] }) {
+    const res = await api.get(`${prefix}`, { params: { expand: query?.expands.join(',') } })
+    return res.data as ProductEntity[]
+}
 
-    async function deleteProductInfo(prdInfoSeq: number) {
-        return api.delete(`${prefix}/productInfo/${prdInfoSeq}`)
-    }
+async function createList(mpus: ProductEntity[]) {
+    return api.post(`${prefix}/batch-create`, mpus)
+}
 
-    return { selectList, createList, deleteProductInfo }
+async function deleteProductInfo(prdInfoSeq: number) {
+    return api.delete(`${prefix}/productInfo/${prdInfoSeq}`)
+}
+
+export default {
+    selectList,
+    createList,
+    deleteProductInfo,
 }

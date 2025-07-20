@@ -1,7 +1,8 @@
-import axios, { type AxiosResponse } from 'axios'
+import axios from 'axios'
+import { useAlert } from '../composables/useAlert'
 
 const api = axios.create({ baseURL: '/api' })
-const Swal = useAlert()
+const Alert = useAlert()
 
 api.interceptors.response.use(
     (response) => {
@@ -10,7 +11,7 @@ api.interceptors.response.use(
     },
     (error) => {
         // whatever you want to do with the error
-        Swal.fireCustom({
+        Alert.fire({
             toast: true,
             icon: 'error',
             title: error?.response?.data?.message ?? error,
@@ -18,6 +19,8 @@ api.interceptors.response.use(
         })
     }
 )
+
+export default api
 
 export const Op: OpTypesCustom = {
     eq: 'eq',

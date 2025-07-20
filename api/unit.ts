@@ -1,28 +1,32 @@
-export default function useApiUnit() {
-    const api = useApi()
-    const prefix = '/unit'
+import api from './'
 
-    async function selectList() {
-        const res = await api.get(prefix)
+const prefix = '/unit'
 
-        return res.data as UnitEntity[]
-    }
+async function selectList() {
+    const res = await api.get(prefix)
 
-    async function create(unit: UnitEntity) {
-        const res = await api.post(prefix, unit)
+    return res.data as UnitEntity[]
+}
 
-        return res.data as UnitEntity
-    }
+async function create(unit: UnitEntity) {
+    const res = await api.post(prefix, unit)
 
-    async function update(unit: UnitEntity) {
-        const res = await api.patch(`${prefix}/${unit.seq}`, unit)
+    return res.data as UnitEntity
+}
 
-        return res.data as UnitEntity
-    }
+async function update(unit: UnitEntity) {
+    const res = await api.patch(`${prefix}/${unit.seq}`, unit)
 
-    function remove(seq: number) {
-        return api.delete(`${prefix}/${seq}`)
-    }
+    return res.data as UnitEntity
+}
 
-    return { selectList, create, update, remove }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
+
+export default {
+    selectList,
+    create,
+    update,
+    remove,
 }

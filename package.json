@@ -22,6 +22,7 @@
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "axios": "^1.10.0",
+    "date-fns": "^4.1.0",
     "nuxt": "^4.0.0",
     "nuxt-quasar-ui": "^2.1.12",
     "quasar": "^2.18.1",

@@ -1,34 +1,39 @@
-export default function useApiSupply() {
-    const api = useApi()
-    const prefix = '/supply'
+import api from './'
 
-    async function selectList() {
-        const res = await api.get(prefix)
+const prefix = '/supply'
 
-        return res.data as SupplyEntity[]
-    }
+async function selectList() {
+    const res = await api.get(prefix)
 
-    async function select(seq: number) {
-        const res = await api.get(`${prefix}/${seq}`)
+    return res.data as SupplyEntity[]
+}
 
-        return res.data as SupplyEntity
-    }
+async function select(seq: number) {
+    const res = await api.get(`${prefix}/${seq}`)
 
-    async function create(supply: SupplyEntityCreation) {
-        const res = await api.post(prefix, { supply })
+    return res.data as SupplyEntity
+}
 
-        return res.data as SupplyEntity
-    }
+async function create(supply: SupplyEntityCreation) {
+    const res = await api.post(prefix, { supply })
 
-    async function update(supply: SupplyEntity) {
-        const res = await api.patch(`${prefix}/${supply.seq}`, { supply })
+    return res.data as SupplyEntity
+}
 
-        return res.data as SupplyEntity
-    }
+async function update(supply: SupplyEntity) {
+    const res = await api.patch(`${prefix}/${supply.seq}`, { supply })
 
-    function remove(seq: number) {
-        return api.delete(`${prefix}/${seq}`)
-    }
+    return res.data as SupplyEntity
+}
 
-    return { selectList, select, create, update, remove }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
+
+export default {
+    selectList,
+    select,
+    create,
+    update,
+    remove,
 }

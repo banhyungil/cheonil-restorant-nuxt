@@ -1,30 +1,32 @@
-import useApi from './useApi'
+import api from './'
 
-export default function useApiPlaceCtg() {
-    const api = useApi()
-    const prefix = '/placeCategory'
+const prefix = '/placeCategory'
 
-    const selectList = async () => {
-        const res = await api.get(prefix)
+async function selectList() {
+    const res = await api.get(prefix)
 
-        return res.data as PlaceCategoryEntity[]
-    }
+    return res.data as PlaceCategoryEntity[]
+}
 
-    const create = async (placeCtg: PlaceCategoryEntityCreation) => {
-        const res = await api.post(prefix, placeCtg)
+async function create(placeCtg: PlaceCategoryEntityCreation) {
+    const res = await api.post(prefix, placeCtg)
 
-        return res.data as PlaceCategoryEntity
-    }
+    return res.data as PlaceCategoryEntity
+}
 
-    const update = async (placeCtg: PlaceCategoryEntity) => {
-        const res = await api.patch(`${prefix}/${placeCtg.seq}`, placeCtg)
+async function update(placeCtg: PlaceCategoryEntity) {
+    const res = await api.patch(`${prefix}/${placeCtg.seq}`, placeCtg)
 
-        return res.data as PlaceCategoryEntity
-    }
+    return res.data as PlaceCategoryEntity
+}
 
-    const remove = (seq: number) => {
-        return api.delete(`${prefix}/${seq}`)
-    }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
 
-    return { selectList, create, update, remove }
+export default {
+    selectList,
+    create,
+    update,
+    remove,
 }

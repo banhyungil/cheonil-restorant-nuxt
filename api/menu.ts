@@ -1,40 +1,41 @@
-import useApi from './useApi'
+import api from './'
 
-// url
-// post
-export default function useApiMenu() {
-    const api = useApi()
-    const prefix = '/menu'
+const prefix = '/menu'
 
-    const selectList = async () => {
-        const res = await api.get(prefix, {
-            data: '',
-        })
+async function selectList() {
+    const res = await api.get(prefix, {
+        data: '',
+    })
 
-        return res.data as MenuEntity[]
-    }
+    return res.data as MenuEntity[]
+}
 
-    const select = async (seq: number) => {
-        const res = await api.get(`${prefix}/${seq}`, {
-            data: '',
-        })
+async function select(seq: number) {
+    const res = await api.get(`${prefix}/${seq}`, {
+        data: '',
+    })
 
-        return res.data as MenuEntity
-    }
+    return res.data as MenuEntity
+}
 
-    const create = async (menu: MenuEntityCreation) => {
-        const res = await api.post(prefix, menu)
-        return res.data as MenuEntity
-    }
+async function create(menu: MenuEntityCreation) {
+    const res = await api.post(prefix, menu)
+    return res.data as MenuEntity
+}
 
-    const update = async (menu: MenuEntity) => {
-        const res = await api.patch(`${prefix}/${menu.seq}`, menu)
-        return res.data as MenuEntity
-    }
+async function update(menu: MenuEntity) {
+    const res = await api.patch(`${prefix}/${menu.seq}`, menu)
+    return res.data as MenuEntity
+}
 
-    const remove = (seq: number) => {
-        return api.delete(`${prefix}/${seq}`)
-    }
+function remove(seq: number) {
+    return api.delete(`${prefix}/${seq}`)
+}
 
-    return { selectList, select, create, update, remove }
+export default {
+    selectList,
+    select,
+    create,
+    update,
+    remove,
 }
